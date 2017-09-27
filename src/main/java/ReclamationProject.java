@@ -8,19 +8,37 @@
  * 5. Remove unnecessary comments as appropriate
  */
 
-public class ReclamationProject
-{
-    static String doit(String a,String b){
-        if (a.length() > b.length()){
-            String c = a; // TODO: set c to a
-            a=b; b=c;}
-        String r = (a.equals(b)) ? "" : ""; // I love the ternary operator!
-        /*
-         * For loop with i
-         */
-        for (int i = 0; i < a.length(); i++) { for (int j = a.length() - i; j > 0; j--) {
-                for (int k = 0; k < b.length()- j; k++) {
-                    r = (a.regionMatches(i, b, k, j) && j >r.length()) ? a.substring(i,i + j) : r; // Do it!
-                        }} // Ah yeah
-        } return r; }
+/**
+ * A class that was reclaimed.
+ */
+public class ReclamationProject {
+    /**
+     * Returns the longest substring match between the two inputs, ignoring the last character.
+     * If you add a space at the end, it will work more or less without issue.
+     *
+     * @param string1 The first input
+     * @param string2 The second input
+     * @return The longest substring match between the two inputs, ignoring the last character
+     */
+    public static String longestCommonSubstring(final String string1, final String string2) {
+        String shorterString = string1;
+        String longerString = string2;
+        if (string1.length() > string2.length()) {
+            String temp = shorterString;
+            shorterString = longerString;
+            longerString = temp;
+        }
+        String longestMatch = ""; // there is no initial match
+        for (int i = 0; i < shorterString.length(); i++) {
+            for (int j = shorterString.length() - i; j > 0; j--) {
+                for (int k = 0; k < longerString.length() - j; k++) {
+                    if (shorterString.regionMatches(i, longerString, k, j) // substrings match
+                            && j > longestMatch.length()) { // longer than the previous match
+                        longestMatch = shorterString.substring(i, i + j); // found a longer match!
+                    }
+                }
+            }
+        }
+        return longestMatch;
+    }
 }
